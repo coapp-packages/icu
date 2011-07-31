@@ -1,0 +1,160 @@
+/* target information */
+
+#product-info  {
+	product-name: "icu";
+	version: "4.8.1";
+	original-source-location: "http://download.icu-project.org/files/icu4c/4.8.1/icu4c-4_8_1-src.zip";
+	original-source-website: "http://site.icu-project.org/";
+	license: "ICU License - See License.html";
+	packager: "Hamish C";
+}
+
+x86 {
+    compiler: vc10-x86;
+    
+    targets: { 
+		"bin\derb.exe",
+		"bin\genbrk.exe",
+		"bin\genccode.exe",
+		"bin\gencfu.exe",
+		"bin\gencmn.exe",
+		"bin\gencnval.exe",
+		"bin\genctd.exe",
+		"bin\gennorm2.exe",
+		"bin\genrb.exe",
+		"bin\gensprep.exe",
+		"bin\icudt48.dll",
+		"bin\icuin48.dll",
+		"bin\icuinfo.exe",
+		"bin\icuio48.dll",
+		"bin\icule48.dll",
+		"bin\iculx48.dll",
+		"bin\icupkg.exe",
+		"bin\icutest.dll",
+		"bin\icutu48.dll",
+		"bin\icuuc48.dll",
+		"bin\makeconv.exe",
+		"bin\pkgdata.exe",
+		"bin\testplug.dll",
+		"bin\uconv.exe",
+		"lib\icudt.exp",
+		"lib\icudt.lib",
+		"lib\icuin.exp",
+		"lib\icuin.lib",
+		"lib\icuio.exp",
+		"lib\icuio.lib",
+		"lib\icule.exp",
+		"lib\icule.lib",
+		"lib\iculx.exp",
+		"lib\iculx.lib",
+		"lib\icutest.exp",
+		"lib\icutest.lib",
+		"lib\icutu.exp",
+		"lib\icutu.lib",
+		"lib\icuuc.exp",
+		"lib\icuuc.lib",
+	};
+	
+    build-command:@"
+          msbuild /p:Platform=win32 /p:Configuration=Release source\allinone\allinone.sln
+	";
+    
+    clean-command:@"
+       if exist bin rmdir /s /q bin > nul 2> nul
+       if exist lib rmdir /s /q lib > nul 2> nul
+       if exist source\allinone\ipch rmdir /s /q source\allinone\ipch > nul 2> nul
+       if exist include rmdir /s /q include > nul 2> nul
+       if exist source\data\out rmdir /s /q source\data\out > nul 2> nul
+       if exist source\test\testdata\out rmdir /s /q source\test\testdata\out > nul 2> nul
+       for /f ""delims="" %%a in ('dir /B/S/AD x86') do rd /s /q ""%%a"" > nul 2> nul
+       del /S /Q /A - *.sdf *.suo *.user *.exe *.pdb  > nul 2>NUL
+
+       del /S /Q source\extra\uconv\pkgdatain.txt source\extra\uconv\resources\fr.res source\extra\uconv\resources\root.res source\stubdatabuilt.txt source\common\unicode\platform.h >NUL 2>NUL
+    ";
+};
+
+x64 {
+    compiler: vc10-x64;
+
+    uses:x86=@".\";
+
+	targets: { 
+		"bin64\derb.exe",
+		"bin64\genbrk.exe",
+		"bin64\genccode.exe",
+		"bin64\gencfu.exe",
+		"bin64\gencmn.exe",
+		"bin64\gencnval.exe",
+		"bin64\genctd.exe",
+		"bin64\gennorm2.exe",
+		"bin64\genrb.exe",
+		"bin64\gensprep.exe",
+		"bin64\icudt48.dll",
+		"bin64\icuin48.dll",
+		"bin64\icuinfo.exe",
+		"bin64\icuio48.dll",
+		"bin64\icule48.dll",
+		"bin64\iculx48.dll",
+		"bin64\icupkg.exe",
+		"bin64\icutest.dll",
+		"bin64\icutu48.dll",
+		"bin64\icuuc48.dll",
+		"bin64\makeconv.exe",
+		"bin64\pkgdata.exe",
+		"bin64\testplug.dll",
+		"bin64\uconv.exe",
+		"lib64\icudt.exp",
+		"lib64\icudt.lib",
+		"lib64\icuin.exp",
+		"lib64\icuin.lib",
+		"lib64\icuio.exp",
+		"lib64\icuio.lib",
+		"lib64\icule.exp",
+		"lib64\icule.lib",
+		"lib64\iculx.exp",
+		"lib64\iculx.lib",
+		"lib64\icutest.exp",
+		"lib64\icutest.lib",
+		"lib64\icutu.exp",
+		"lib64\icutu.lib",
+		"lib64\icuuc.exp",
+		"lib64\icuuc.lib",
+	};
+	
+    build-command:@"
+          rem Because we want to be able to build x64 on x86 we have to build a slightly 
+          rem modified version of the x86 tools that will build the x64 release on x86/64 hardware
+          rem To that end, pkg_gen.c has a small mod (line 661, added || defined(_M_X86_AMD64) to the end)
+          rem This is only a temporary workaround to get it building for now, a more permenant solution needs to be found later.
+          rem In addition, the makefiles have been modified to always use the x86 tools, rather than the x86 on x86 and x64 on x64.  See commit history for details
+
+          rem build the x86 tools configured for x64 output
+          call setenv /x86
+          rem best you have your visual studio installed in the default location...
+          IF EXIST ""C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"" call ""C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"" x86
+          IF EXIST ""C:\Program Files\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"" call ""C:\Program Files\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"" x86
+          msbuild /p:Platform=Win32 /p:Configuration=x86 source\allinone\allinone.sln
+          msbuild /p:Platform=Win32 /p:Configuration=x86_64 source\allinone\allinone.sln
+
+          rem Now do the x64 build
+          call setenv /x64
+          IF EXIST ""C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"" call ""C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"" amd64
+          IF EXIST ""C:\Program Files\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"" call ""C:\Program Files\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"" x86_amd64
+          msbuild /p:Platform=x64 /p:Configuration=Release source\allinone\allinone.sln
+
+    ";
+    clean-command:@"
+       if exist bin64 rmdir /s /q bin64 > nul 2> nul
+       if exist lib64 rmdir /s /q lib64 > nul 2> nul
+       if exist source\allinone\ipch rmdir /s /q source\allinone\ipch > nul 2> nul
+       if exist bin rmdir /s /q bin > nul 2> nul
+       if exist lib rmdir /s /q lib > nul 2> nul
+       if exist include rmdir /s /q include > nul 2> nul
+       if exist source\data\out rmdir /s /q source\data\out > nul 2> nul
+       if exist source\test\testdata\out rmdir /s /q source\test\testdata\out > nul 2> nul
+       for /f ""delims="" %%a in ('dir /B/S/AD x64') do rd /s /q ""%%a"" > nul 2> nul
+       for /f ""delims="" %%a in ('dir /B/S/AD x86') do rd /s /q ""%%a"" > nul 2> nul
+       del /S /Q /A - *.sdf *.suo *.user *.exe *.pdb  > nul 2>NUL
+       del /S /Q source\extra\uconv\pkgdatain.txt source\extra\uconv\resources\fr.res source\extra\uconv\resources\root.res source\stubdatabuilt.txt source\common\unicode\platform.h >NUL 2>NUL
+    ";
+};

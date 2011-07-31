@@ -658,7 +658,7 @@ getArchitecture(uint16_t *pCPU, uint16_t *pBits, UBool *pIsBigEndian, const char
 /* _M_IA64 should be defined in windows.h */
 #   if defined(_M_IA64)
         *pCPU=IMAGE_FILE_MACHINE_IA64;
-#   elif defined(_M_AMD64)
+#   elif defined(_M_AMD64)  || defined(_M_X86_AMD64)
         *pCPU=IMAGE_FILE_MACHINE_AMD64;
 #   else
         *pCPU=IMAGE_FILE_MACHINE_I386;

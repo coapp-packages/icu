@@ -148,8 +148,8 @@ ICUTOOLS=$(ICUP)\source\tools
 
 # The current ICU tools need to be in the path first.
 !IF "$(CFG)" == "x64\Release" || "$(CFG)" == "x64\Debug"
-PATH = $(ICUP)\bin64;$(PATH)
-ICUPBIN=$(ICUP)\bin64
+PATH = $(ICUP)\bin;$(PATH)
+ICUPBIN=$(ICUP)\bin
 !ELSE
 PATH = $(ICUP)\bin;$(PATH)
 ICUPBIN=$(ICUP)\bin
@@ -566,7 +566,7 @@ icu4j-data-install :
 "$(TESTDATAOUT)\testdata.dat": "$(TESTDATA)\*" "$(ICUBLD_PKG)\$(ICUCOL)\ucadata.icu" $(TRANSLIT_RES_FILES) $(MISC_FILES) $(RB_FILES) {"$(ICUTOOLS)\genrb\$(CFG)"}genrb.exe
 	@cd "$(TESTDATA)"
 	@echo building testdata...
-	nmake /nologo /f "$(TESTDATA)\testdata.mak" TESTDATA=. ICUTOOLS="$(ICUTOOLS)" ICUPBIN="$(ICUPBIN)" ICUP="$(ICUP)" CFG=$(CFG) TESTDATAOUT="$(TESTDATAOUT)" TESTDATABLD="$(TESTDATABLD)"
+	nmake /nologo /f "$(TESTDATA)\testdata.mak" TESTDATA=. ICUTOOLS="$(ICUTOOLS)" ICUPBIN="$(ICUPBIN)" ICUP="$(ICUP)" CFG=x86\Release TESTDATAOUT="$(TESTDATAOUT)" TESTDATABLD="$(TESTDATABLD)"
 
 #invoke pkgdata for ICU common data
 #  pkgdata will drop all output files (.dat, .dll, .lib) into the target (ICUBLD_PKG) directory.

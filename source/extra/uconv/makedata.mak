@@ -49,8 +49,8 @@ ICD=$(ICUDATA)^\
 DATA_PATH=$(ICUP)\data^\
 
 !IF "$(CFG)" == "x64\Release" || "$(CFG)" == "x64\Debug"
-ICUTOOLS=$(ICUP)\bin64
-PATH = $(ICUP)\bin64;$(PATH)
+ICUTOOLS=$(ICUP)\bin
+PATH = $(ICUP)\bin;$(PATH)
 !ELSE
 ICUTOOLS=$(ICUP)\bin
 PATH = $(ICUP)\bin;$(PATH)
