@@ -83,7 +83,7 @@
     <CustomBuildStep>
       <Command>copy "$(TargetPath)" ..\..\..\bin
 </Command>
-      <Outputs>..\..\..\bin\$(TargetFileName);%(Outputs)</Outputs>
+      <Outputs>..\..\..\bin\$(comp)\$(TargetFileName);%(Outputs)</Outputs>
     </CustomBuildStep>
     <ClCompile>
       <AdditionalIncludeDirectories>..\..\common;..\..\i18n;..\toolutil;..\ctestfw;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -118,7 +118,7 @@
     <CustomBuildStep>
       <Command>copy "$(TargetPath)" ..\..\..\bin
 </Command>
-      <Outputs>..\..\..\bin\$(TargetFileName);%(Outputs)</Outputs>
+      <Outputs>..\..\..\bin\$(comp)\$(TargetFileName);%(Outputs)</Outputs>
     </CustomBuildStep>
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -157,7 +157,7 @@
     <CustomBuildStep>
       <Command>copy "$(TargetPath)" ..\..\..\bin64
 </Command>
-      <Outputs>..\..\..\bin64\$(TargetFileName);%(Outputs)</Outputs>
+      <Outputs>..\..\..\bin64\$(comp)\$(TargetFileName);%(Outputs)</Outputs>
     </CustomBuildStep>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
@@ -193,7 +193,7 @@
     <CustomBuildStep>
       <Command>copy "$(TargetPath)" ..\..\..\bin64
 </Command>
-      <Outputs>..\..\..\bin64\$(TargetFileName);%(Outputs)</Outputs>
+      <Outputs>..\..\..\bin64\$(comp)\$(TargetFileName);%(Outputs)</Outputs>
     </CustomBuildStep>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>

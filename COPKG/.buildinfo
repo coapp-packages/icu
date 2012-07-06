@@ -1,0 +1,164 @@
+/* target information */
+
+#product-info  {
+	product-name: "icu";
+	version: "4.8.1.1";
+	original-source-location: "http://download.icu-project.org/files/icu4c/4.8.1/icu4c-4_8_1-src.zip";
+	original-source-website: "http://site.icu-project.org/";
+	license: "ICU License - See License.html";
+	packager: "Hamish C";
+}
+
+release {
+    set: {
+        BldCfg="Release";
+        COMP="${COMP??vc10}";
+        PLAT="${PLAT??x86, x64}";
+    };
+    build-command:@"
+        for %%A in (${COMP}) do (
+            for %%B in (${PLAT}) do (
+                ptk --nologo %%B --COMP=%%A || goto failed
+                ptk --nologo clean %%B --COMP=%%A || goto failed
+            )
+        )
+    ";
+};
+
+base {
+    set: BldCfg="${BldCfg??Debug}";
+    compiler: "${COMP??vc10}";
+    platform: "${PLAT??x86}";
+    build-command:@"
+        if ""${PLAT}"" equ ""x86"" (
+            msbuild /p:Platform=win32 /p:Configuration=${BldCfg} source\allinone\allinone.sln
+        ) else (
+            msbuild /p:Platform=${PLAT} /p:Configuration=${BldCfg} source\allinone\allinone.sln
+        )
+	";
+
+};
+
+x86 {
+    set: {
+        COMP="${COMP??vc10}";
+        PLAT=x86;
+    };
+    
+    uses: base;
+    
+    targets: { 
+		"bin\${COMP}\derb.exe",
+		"bin\${COMP}\genbrk.exe",
+		"bin\${COMP}\genccode.exe",
+		"bin\${COMP}\gencfu.exe",
+		"bin\${COMP}\gencmn.exe",
+		"bin\${COMP}\gencnval.exe",
+		"bin\${COMP}\genctd.exe",
+		"bin\${COMP}\gennorm2.exe",
+		"bin\${COMP}\genrb.exe",
+		"bin\${COMP}\gensprep.exe",
+		"bin\${COMP}\icudt48.dll",
+		"bin\${COMP}\icuin48.dll",
+		"bin\${COMP}\icuinfo.exe",
+		"bin\${COMP}\icuio48.dll",
+		"bin\${COMP}\icule48.dll",
+		"bin\${COMP}\iculx48.dll",
+		"bin\${COMP}\icupkg.exe",
+		"bin\${COMP}\icutest.dll",
+		"bin\${COMP}\icutu48.dll",
+		"bin\${COMP}\icuuc48.dll",
+		"bin\${COMP}\makeconv.exe",
+		"bin\${COMP}\pkgdata.exe",
+		"bin\${COMP}\testplug.dll",
+		"bin\${COMP}\uconv.exe",
+		"lib\${COMP}\icudt.exp",
+		"lib\${COMP}\icudt.lib",
+		"lib\${COMP}\icuin.exp",
+		"lib\${COMP}\icuin.lib",
+		"lib\${COMP}\icuio.exp",
+		"lib\${COMP}\icuio.lib",
+		"lib\${COMP}\icule.exp",
+		"lib\${COMP}\icule.lib",
+		"lib\${COMP}\iculx.exp",
+		"lib\${COMP}\iculx.lib",
+		"lib\${COMP}\icutest.exp",
+		"lib\${COMP}\icutest.lib",
+		"lib\${COMP}\icutu.exp",
+		"lib\${COMP}\icutu.lib",
+		"lib\${COMP}\icuuc.exp",
+		"lib\${COMP}\icuuc.lib",
+	};
+	
+    
+    clean-command:@"
+       if exist source\allinone\ipch rmdir /s /q source\allinone\ipch > nul 2> nul
+       if exist source\data\out rmdir /s /q source\data\out > nul 2> nul
+       if exist source\test\testdata\out rmdir /s /q source\test\testdata\out > nul 2> nul
+       for /f ""delims="" %%a in ('dir /B/S/AD x86') do rd /s /q ""%%a"" > nul 2> nul
+       del /S /Q /A - *.sdf *.suo *.user  > nul 2>NUL
+       del /S /Q source\extra\uconv\pkgdatain.txt source\extra\uconv\resources\fr.res source\extra\uconv\resources\root.res source\stubdatabuilt.txt source\common\unicode\platform.h >NUL 2>NUL
+    ";
+};
+
+x64 {
+    set: {
+        COMP="${COMP??vc10}";
+        PLAT=x64;
+    };
+
+    uses:base;
+
+	targets: { 
+		"bin64\${COMP}\derb.exe",
+		"bin64\${COMP}\genbrk.exe",
+		"bin64\${COMP}\genccode.exe",
+		"bin64\${COMP}\gencfu.exe",
+		"bin64\${COMP}\gencmn.exe",
+		"bin64\${COMP}\gencnval.exe",
+		"bin64\${COMP}\genctd.exe",
+		"bin64\${COMP}\gennorm2.exe",
+		"bin64\${COMP}\genrb.exe",
+		"bin64\${COMP}\gensprep.exe",
+		"bin64\${COMP}\icudt48.dll",
+		"bin64\${COMP}\icuin48.dll",
+		"bin64\${COMP}\icuinfo.exe",
+		"bin64\${COMP}\icuio48.dll",
+		"bin64\${COMP}\icule48.dll",
+		"bin64\${COMP}\iculx48.dll",
+		"bin64\${COMP}\icupkg.exe",
+		"bin64\${COMP}\icutest.dll",
+		"bin64\${COMP}\icutu48.dll",
+		"bin64\${COMP}\icuuc48.dll",
+		"bin64\${COMP}\makeconv.exe",
+		"bin64\${COMP}\pkgdata.exe",
+		"bin64\${COMP}\testplug.dll",
+		"bin64\${COMP}\uconv.exe",
+		"lib64\${COMP}\icudt.exp",
+		"lib64\${COMP}\icudt.lib",
+		"lib64\${COMP}\icuin.exp",
+		"lib64\${COMP}\icuin.lib",
+		"lib64\${COMP}\icuio.exp",
+		"lib64\${COMP}\icuio.lib",
+		"lib64\${COMP}\icule.exp",
+		"lib64\${COMP}\icule.lib",
+		"lib64\${COMP}\iculx.exp",
+		"lib64\${COMP}\iculx.lib",
+		"lib64\${COMP}\icutest.exp",
+		"lib64\${COMP}\icutest.lib",
+		"lib64\${COMP}\icutu.exp",
+		"lib64\${COMP}\icutu.lib",
+		"lib64\${COMP}\icuuc.exp",
+		"lib64\${COMP}\icuuc.lib",
+	};
+	
+    clean-command:@"
+       if exist source\allinone\ipch rmdir /s /q source\allinone\ipch > nul 2> nul
+       if exist source\data\out rmdir /s /q source\data\out > nul 2> nul
+       if exist source\test\testdata\out rmdir /s /q source\test\testdata\out > nul 2> nul
+       for /f ""delims="" %%a in ('dir /B/S/AD x64') do rd /s /q ""%%a"" > nul 2> nul
+       for /f ""delims="" %%a in ('dir /B/S/AD x86') do rd /s /q ""%%a"" > nul 2> nul
+       del /S /Q /A - *.sdf *.suo *.user  > nul 2>NUL
+       del /S /Q source\extra\uconv\pkgdatain.txt source\extra\uconv\resources\fr.res source\extra\uconv\resources\root.res source\stubdatabuilt.txt source\common\unicode\platform.h >NUL 2>NUL
+    ";
+};

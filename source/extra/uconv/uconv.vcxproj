@@ -79,9 +79,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <CustomBuildStep>
-      <Command>copy "$(TargetPath)" ..\..\..\bin
-</Command>
-      <Outputs>$(ProjectDir)..\..\..\bin\$(TargetFileName);%(Outputs)</Outputs>
+      <Command>copy "$(TargetPath)" ..\..\..\bin\$(comp)</Command>
+      <Outputs>$(ProjectDir)..\..\..\bin\$(comp)\$(TargetFileName);%(Outputs)</Outputs>
     </CustomBuildStep>
     <Midl>
       <TypeLibraryName>.\x86\Release/uconv.tlb</TypeLibraryName>
@@ -120,9 +119,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <CustomBuildStep>
-      <Command>copy "$(TargetPath)" ..\..\..\bin
-</Command>
-      <Outputs>$(ProjectDir)..\..\..\bin\$(TargetFileName);%(Outputs)</Outputs>
+      <Command>copy "$(TargetPath)" ..\..\..\bin\$(comp)</Command>
+      <Outputs>$(ProjectDir)..\..\..\bin\$(comp)\$(TargetFileName);%(Outputs)</Outputs>
     </CustomBuildStep>
     <Midl>
       <TypeLibraryName>.\x86\Debug/uconv.tlb</TypeLibraryName>
@@ -164,9 +162,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <CustomBuildStep>
-      <Command>copy "$(TargetPath)" ..\..\..\bin64
-</Command>
-      <Outputs>$(ProjectDir)..\..\..\bin64\$(TargetFileName);%(Outputs)</Outputs>
+      <Command>copy "$(TargetPath)" ..\..\..\bin64\$(comp)</Command>
+      <Outputs>$(ProjectDir)..\..\..\bin64\$(comp)\$(TargetFileName);%(Outputs)</Outputs>
     </CustomBuildStep>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
@@ -204,9 +201,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <CustomBuildStep>
-      <Command>copy "$(TargetPath)" ..\..\..\bin64
-</Command>
-      <Outputs>$(ProjectDir)..\..\..\bin64\$(TargetFileName);%(Outputs)</Outputs>
+      <Command>copy "$(TargetPath)" ..\..\..\bin64\$(comp)</Command>
+      <Outputs>$(ProjectDir)..\..\..\bin64\$(comp)\$(TargetFileName);%(Outputs)</Outputs>
     </CustomBuildStep>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>

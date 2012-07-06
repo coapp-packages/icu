@@ -75,9 +75,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <CustomBuildStep>
-      <Command>copy "$(TargetPath)" ..\..\..\bin
-</Command>
-      <Outputs>..\..\..\bin\$(TargetFileName);%(Outputs)</Outputs>
+      <Command>copy "$(TargetPath)" ..\..\..\bin\$(comp)</Command>
+      <Outputs>..\..\..\bin\$(comp)\$(TargetFileName);%(Outputs)</Outputs>
     </CustomBuildStep>
     <ClCompile>
       <AdditionalIncludeDirectories>..\..\common;..\toolutil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -117,9 +116,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <CustomBuildStep>
-      <Command>copy "$(TargetPath)" ..\..\..\bin
-</Command>
-      <Outputs>..\..\..\bin\$(TargetFileName);%(Outputs)</Outputs>
+      <Command>copy "$(TargetPath)" ..\..\..\bin\$(comp)</Command>
+      <Outputs>..\..\..\bin\$(comp)\$(TargetFileName);%(Outputs)</Outputs>
     </CustomBuildStep>
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -160,9 +158,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <CustomBuildStep>
-      <Command>copy "$(TargetPath)" ..\..\..\bin64
-</Command>
-      <Outputs>..\..\..\bin64\$(TargetFileName);%(Outputs)</Outputs>
+      <Command>copy "$(TargetPath)" ..\..\..\bin64\$(comp)</Command>
+      <Outputs>..\..\..\bin64\$(comp)\$(TargetFileName);%(Outputs)</Outputs>
     </CustomBuildStep>
     <ClCompile>
       <AdditionalIncludeDirectories>..\..\common;..\toolutil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -202,9 +199,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <CustomBuildStep>
-      <Command>copy "$(TargetPath)" ..\..\..\bin64
-</Command>
-      <Outputs>..\..\..\bin64\$(TargetFileName);%(Outputs)</Outputs>
+      <Command>copy "$(TargetPath)" ..\..\..\bin64\$(comp)</Command>
+      <Outputs>..\..\..\bin64\$(comp)\$(TargetFileName);%(Outputs)</Outputs>
     </CustomBuildStep>
     <ClCompile>
       <Optimization>Disabled</Optimization>

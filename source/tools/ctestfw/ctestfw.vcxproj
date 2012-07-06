@@ -64,16 +64,16 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\..\..\lib\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\..\..\lib\$(comp)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\x86\Release\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\..\..\lib\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\..\..\lib\$(comp)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\x86\Debug\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\x64\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\..\..\..\lib64\$(comp)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\x64\Release\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\x64\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\..\..\..\lib64\$(comp)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\x64\Debug\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
   </PropertyGroup>
@@ -83,7 +83,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\..\..\..\lib\icutest.tlb</TypeLibraryName>
+      <TypeLibraryName>.\..\..\..\lib\$(comp)\icutest.tlb</TypeLibraryName>
     </Midl>
     <ClCompile>
       <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -107,15 +107,15 @@
       <Culture>0x0409</Culture>
     </ResourceCompile>
     <Link>
-      <OutputFile>..\..\..\bin\icutest.dll</OutputFile>
+      <OutputFile>..\..\..\bin\$(comp)\icutest.dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <ProgramDatabaseFile>.\..\..\..\lib\icutest.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\..\..\..\lib\$(comp)\icutest.pdb</ProgramDatabaseFile>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <ImportLibrary>.\..\..\..\lib\icutest.lib</ImportLibrary>
+      <ImportLibrary>.\..\..\..\lib\$(comp)\icutest.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -124,7 +124,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\..\..\..\lib\icutestd.tlb</TypeLibraryName>
+      <TypeLibraryName>.\..\..\..\lib\$(comp)\icutestd.tlb</TypeLibraryName>
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -150,14 +150,14 @@
       <Culture>0x0409</Culture>
     </ResourceCompile>
     <Link>
-      <OutputFile>..\..\..\bin\icutestd.dll</OutputFile>
+      <OutputFile>..\..\..\bin\$(comp)\icutestd.dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>.\..\..\..\lib\icutestd.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\..\..\..\lib\$(comp)\icutestd.pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <ImportLibrary>.\..\..\..\lib\icutestd.lib</ImportLibrary>
+      <ImportLibrary>.\..\..\..\lib\$(comp)\icutestd.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -166,7 +166,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>.\..\..\..\lib64\icutest.tlb</TypeLibraryName>
+      <TypeLibraryName>.\..\..\..\lib64\$(comp)\icutest.tlb</TypeLibraryName>
     </Midl>
     <ClCompile>
       <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -190,12 +190,12 @@
       <Culture>0x0409</Culture>
     </ResourceCompile>
     <Link>
-      <OutputFile>..\..\..\bin64\icutest.dll</OutputFile>
+      <OutputFile>..\..\..\bin64\$(comp)\icutest.dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <ProgramDatabaseFile>.\..\..\..\lib64\icutest.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\..\..\..\lib64\$(comp)\icutest.pdb</ProgramDatabaseFile>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <ImportLibrary>.\..\..\..\lib64\icutest.lib</ImportLibrary>
+      <ImportLibrary>.\..\..\..\lib64\$(comp)\icutest.lib</ImportLibrary>
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
@@ -205,7 +205,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>.\..\..\..\lib64\icutestd.tlb</TypeLibraryName>
+      <TypeLibraryName>.\..\..\..\lib64\$(comp)\icutestd.tlb</TypeLibraryName>
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -231,11 +231,11 @@
       <Culture>0x0409</Culture>
     </ResourceCompile>
     <Link>
-      <OutputFile>..\..\..\bin64\icutestd.dll</OutputFile>
+      <OutputFile>..\..\..\bin64\$(comp)\icutestd.dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>.\..\..\..\lib64\icutestd.pdb</ProgramDatabaseFile>
-      <ImportLibrary>.\..\..\..\lib64\icutestd.lib</ImportLibrary>
+      <ProgramDatabaseFile>.\..\..\..\lib64\$(comp)\icutestd.pdb</ProgramDatabaseFile>
+      <ImportLibrary>.\..\..\..\lib64\$(comp)\icutestd.lib</ImportLibrary>
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
