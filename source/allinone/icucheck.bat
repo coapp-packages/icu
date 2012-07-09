@@ -21,7 +21,8 @@ exit /b 1
 set ICU_OPATH=%PATH%
 
 set ICU_ICUDIR=%~f0\..\..\..
-set ICU_BINDIR=%ICU_ICUDIR%\bin
+if "%1" == "x86" set ICU_BINDIR=%ICU_ICUDIR%\bin\%COMP%
+if "%1" == "x64" set ICU_BINDIR=%ICU_ICUDIR%\bin64\%COMP%
 set PATH=%ICU_BINDIR%;%PATH%
 
 echo testing ICU in %ICU_ICUDIR%  arch=%ICU_ARCH% type=%ICU_DBRL%

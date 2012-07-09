@@ -1,0 +1,55 @@
+@import "version.inc";
+@import "icu.inc";
+@import "outercurve.inc";
+
+#define { 
+    flavor: "${flav??vc10}"; 
+    arch : "${arc??x86}";
+}
+
+package {
+    name: "libicu[${flavor}]";
+    display-name: "libicu";
+    arch: @"${arch}";
+}
+
+metadata {
+    summary: "libicu";
+}
+
+files[dlls] {
+    root: @"..\bin${arch}\${flavor}\";
+  
+    include: {
+        "*.dll",
+    };
+    
+    trim-path: all;
+};
+
+files[files-to-sign] {
+    include: { 
+        dlls
+    };    
+}
+
+assembly[libicu[${flavor}]] {
+    include : {
+        dlls
+    };
+}
+
+signing {
+    attributes : {
+        company="Outercurve Foundation",
+        description="${Package.PackageDetails.SummaryDescription}",
+        product-name="libicu",
+        product-version="${package-version}",
+        file-version="${package-version}",
+    };
+    
+    replace-signature: true; 
+    include: { 
+        files-to-sign
+    };    
+}

@@ -1,0 +1,32 @@
+@import "version.inc" ;
+@import "icu.inc";
+@import "outercurve.inc";
+
+package {
+    name: "libicu-dev-common";
+    display-name: "libicu Dev Library-common";
+    arch: any;
+}
+
+metadata {
+    summary: "libicu developer library (common)";
+}
+
+files[headers] {
+    root: "..\\include\\";
+    include: {
+        "**.h"
+    };
+    
+    trim-path:minimal;
+    
+    // ensures that all the header files end up in a subfolder called 'include'
+    destination-path:"include";
+}
+
+// the 'name' of the developer library isn't terribly important...
+developer-library[libicu] {
+    headers: { 
+        headers
+    };
+}

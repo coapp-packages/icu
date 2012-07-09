@@ -49,11 +49,11 @@ ICD=$(ICUDATA)^\
 DATA_PATH=$(ICUP)\data^\
 
 !IF "$(CFG)" == "x64\Release" || "$(CFG)" == "x64\Debug"
-ICUTOOLS=$(ICUP)\bin64
-PATH = $(ICUP)\bin64;$(PATH)
+ICUTOOLS=$(ICUP)\bin64\$(COMP)
+PATH = $(ICUP)\bin64\$(COMP);$(PATH)
 !ELSE
-ICUTOOLS=$(ICUP)\bin
-PATH = $(ICUP)\bin;$(PATH)
+ICUTOOLS=$(ICUP)\bin\$(COMP)
+PATH = $(ICUP)\bin\$(COMP);$(PATH)
 !ENDIF
 
 # Suffixes for data files

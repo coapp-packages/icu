@@ -1,0 +1,40 @@
+@import "version.inc" ;
+@import "icu.inc";
+@import "outercurve.inc" ;
+
+#define { 
+    flavor: "${flav??vc10}"; 
+    arch : "${arc??x86}";
+}
+
+package {
+    name: "libicu-dev[${flavor}]";
+    display-name: "libicu developer library";
+    arch: @"${arch}";
+}
+
+metadata {
+    summary: "The libicu developer library";
+}
+
+files[libs] {
+    root: @"..\lib${arch}\${flavor}\";
+
+    include: {
+        "*.lib",
+        //"*.exp",
+    };
+    
+    trim-path: all;
+};
+
+requires {
+    package: "libicu-dev-common-${package-version}-any-${Package.PublicKeyToken}";
+    package: "libicu[${flavor}]-${package-version}-${Package.Architecture}-${Package.PublicKeyToken}";
+}
+
+developer-library[libicu[${flavor}]] {
+    libraries : {
+        libs
+    };
+}

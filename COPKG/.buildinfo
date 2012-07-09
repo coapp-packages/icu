@@ -1,13 +1,89 @@
+@import "version.inc" ;
 /* target information */
+
+#define {
+    NewVersion : "${package-version++}";
+};
 
 #product-info  {
 	product-name: "icu";
-	version: "4.8.1.1";
-	original-source-location: "http://download.icu-project.org/files/icu4c/4.8.1/icu4c-4_8_1-src.zip";
+    version: "${NewVersion}";
+	original-source-location: "http://download.icu-project.org/files/icu4c/4.8.1.1/icu4c-4_8_1_1-src.zip";
 	original-source-website: "http://site.icu-project.org/";
 	license: "ICU License - See License.html";
-	packager: "Hamish C";
+	packager: "Tim Rogers";
 }
+
+package {
+    set: COMP="${COMP??vc10}";
+    set: PLAT="${PLAT??x86, x64}";
+    uses : {
+        update-version,
+        release,
+    };
+    
+    targets: { 
+        (COMP,PLAT) => @"copkg\libicu-dev[${0}]-${NewVersion}-${1}.msi",
+    };
+    
+    build-command:@"
+        REM First, some minor renaming of directories to make my life easier.
+        ren bin binx86
+        ren bin64 binx64
+        ren lib libx86
+        ren lib64 libx64
+        pushd COPKG
+        autopackage libicu-dev-common.autopkg || goto failed
+        for %%A in (${COMP}) do (
+            for %%B in (${PLAT}) do (
+                autopackage --flav=%%A --arc=%%B libicu.autopkg icu.autopkg libicu-dev.autopkg || goto failed
+            )
+        )
+    ";
+	clean-command: @"del COPKG\*.msi COPKG\*.wixpdb";
+};
+
+update-version {
+    build-command : @"
+        REM auto-increment version.inc file...
+        if ""${noversion}"" == ""true"" goto :endver
+        pushd COPKG
+        setlocal EnableDelayedExpansion
+        set VERSTRING=#define { package-version: ${NewVersion}; }
+        echo !VERSTRING! > version.inc
+        popd
+        :endver
+    ";
+}
+
+test {
+    set: {
+        COMP="${COMP??vc10}";
+        PLAT="${PLAT??x86, x64}";
+    };
+    uses: release;
+    build-command:@"
+        for %%A in (${COMP}) do (
+            for %%B in (${PLAT}) do (
+                ptk --nologo teststub --COMP=%%A --PLAT=%%B || goto failed
+            )
+        )
+    ";
+};
+
+teststub {
+    set: {
+        COMP="${COMP??vc10}";
+        PLAT="${PLAT??x86}";
+    };
+    build-command:@"
+        pushd source\allinone
+        call icucheck ${PLAT} Release
+        echo Failure in intltest expected:  Format failure in en_US@calendar=hebrew
+        set errorlevel=0
+        popd
+    ";
+};
 
 release {
     set: {
@@ -16,12 +92,25 @@ release {
         PLAT="${PLAT??x86, x64}";
     };
     build-command:@"
+        if ""${BUILT}"" equ ""true"" goto skiprelease
         for %%A in (${COMP}) do (
             for %%B in (${PLAT}) do (
                 ptk --nologo %%B --COMP=%%A || goto failed
                 ptk --nologo clean %%B --COMP=%%A || goto failed
             )
         )
+:skiprelease
+    ";
+    clean-command: @"
+        if exist bin rd /s /q bin
+        if exist lib rd /s /q lib
+        if exist bin64 rd /s /q bin64
+        if exist lib64 rd /s /q lib64
+        if exist binx86 rd /s /q binx86
+        if exist libx86 rd /s /q libx86
+        if exist binx64 rd /s /q binx64
+        if exist libx64 rd /s /q libx64
+        if exist include rd /s /q include
     ";
 };
 
@@ -92,10 +181,6 @@ x86 {
 	
     
     clean-command:@"
-       if exist source\allinone\ipch rmdir /s /q source\allinone\ipch > nul 2> nul
-       if exist source\data\out rmdir /s /q source\data\out > nul 2> nul
-       if exist source\test\testdata\out rmdir /s /q source\test\testdata\out > nul 2> nul
-       for /f ""delims="" %%a in ('dir /B/S/AD x86') do rd /s /q ""%%a"" > nul 2> nul
        del /S /Q /A - *.sdf *.suo *.user  > nul 2>NUL
        del /S /Q source\extra\uconv\pkgdatain.txt source\extra\uconv\resources\fr.res source\extra\uconv\resources\root.res source\stubdatabuilt.txt source\common\unicode\platform.h >NUL 2>NUL
     ";
@@ -153,12 +238,18 @@ x64 {
 	};
 	
     clean-command:@"
+       del /S /Q /A - *.sdf *.suo *.user  > nul 2>NUL
+       del /S /Q source\extra\uconv\pkgdatain.txt source\extra\uconv\resources\fr.res source\extra\uconv\resources\root.res source\stubdatabuilt.txt source\common\unicode\platform.h >NUL 2>NUL
+    ";
+};
+
+world {
+    uses: release;
+    clean-command:@"
        if exist source\allinone\ipch rmdir /s /q source\allinone\ipch > nul 2> nul
        if exist source\data\out rmdir /s /q source\data\out > nul 2> nul
        if exist source\test\testdata\out rmdir /s /q source\test\testdata\out > nul 2> nul
-       for /f ""delims="" %%a in ('dir /B/S/AD x64') do rd /s /q ""%%a"" > nul 2> nul
        for /f ""delims="" %%a in ('dir /B/S/AD x86') do rd /s /q ""%%a"" > nul 2> nul
-       del /S /Q /A - *.sdf *.suo *.user  > nul 2>NUL
-       del /S /Q source\extra\uconv\pkgdatain.txt source\extra\uconv\resources\fr.res source\extra\uconv\resources\root.res source\stubdatabuilt.txt source\common\unicode\platform.h >NUL 2>NUL
+       for /f ""delims="" %%a in ('dir /B/S/AD x64') do rd /s /q ""%%a"" > nul 2> nul
     ";
 };

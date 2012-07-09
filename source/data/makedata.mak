@@ -118,9 +118,9 @@ ICUDATA=$(ICUP)\source\data
 #      The lib file for the data DLL goes in $(DLL_OUTPUT)/../lib/
 #
 !IF "$(CFG)" == "x64\Release" || "$(CFG)" == "x64\Debug"
-DLL_OUTPUT=$(ICUP)\bin64
+DLL_OUTPUT=$(ICUP)\bin64\$(COMP)
 !ELSE
-DLL_OUTPUT=$(ICUP)\bin
+DLL_OUTPUT=$(ICUP)\bin\$(COMP)
 !ENDIF
 
 #
@@ -148,11 +148,11 @@ ICUTOOLS=$(ICUP)\source\tools
 
 # The current ICU tools need to be in the path first.
 !IF "$(CFG)" == "x64\Release" || "$(CFG)" == "x64\Debug"
-PATH = $(ICUP)\bin64;$(PATH)
-ICUPBIN=$(ICUP)\bin64
+PATH = $(ICUP)\bin64\$(COMP);$(PATH)
+ICUPBIN=$(ICUP)\bin64\$(COMP)
 !ELSE
-PATH = $(ICUP)\bin;$(PATH)
-ICUPBIN=$(ICUP)\bin
+PATH = $(ICUP)\bin\$(COMP);$(PATH)
+ICUPBIN=$(ICUP)\bin\$(COMP)
 !ENDIF
 
 
