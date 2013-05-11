@@ -508,6 +508,17 @@
     <ClCompile Include="utf_impl.c">
       <Filter>strings</Filter>
     </ClCompile>
+    <ClCompile Include="ucnv_ct.c" />
+    <ClCompile Include="patternprops.cpp" />
+    <ClCompile Include="appendable.cpp" />
+    <ClCompile Include="bytestrie.cpp" />
+    <ClCompile Include="bytestriebuilder.cpp" />
+    <ClCompile Include="bytestrieiterator.cpp" />
+    <ClCompile Include="messagepattern.cpp" />
+    <ClCompile Include="stringtriebuilder.cpp" />
+    <ClCompile Include="ucharstrie.cpp" />
+    <ClCompile Include="ucharstriebuilder.cpp" />
+    <ClCompile Include="ucharstrieiterator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ubidi_props.h">
@@ -717,9 +728,6 @@
     <ClInclude Include="uset_imp.h">
       <Filter>properties &amp; sets</Filter>
     </ClInclude>
-    <ClInclude Include="unicode\icuplug.h">
-      <Filter>registration</Filter>
-    </ClInclude>
     <ClInclude Include="icuplugimp.h">
       <Filter>registration</Filter>
     </ClInclude>
@@ -753,6 +761,8 @@
     <ClInclude Include="ustr_imp.h">
       <Filter>strings</Filter>
     </ClInclude>
+    <ClInclude Include="messageimpl.h" />
+    <ClInclude Include="patternprops.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="common.rc">
@@ -994,5 +1004,14 @@
     <CustomBuild Include="unicode\utf_old.h">
       <Filter>strings</Filter>
     </CustomBuild>
+    <CustomBuild Include="unicode\icuplug.h" />
+    <CustomBuild Include="unicode\appendable.h" />
+    <CustomBuild Include="unicode\bytestrie.h" />
+    <CustomBuild Include="unicode\bytestriebuilder.h" />
+    <CustomBuild Include="unicode\messagepattern.h" />
+    <CustomBuild Include="unicode\stringtriebuilder.h" />
+    <CustomBuild Include="unicode\ucharstrie.h" />
+    <CustomBuild Include="unicode\ucharstriebuilder.h" />
+    <CustomBuild Include="unicode\ustringtrie.h" />
   </ItemGroup>
 </Project>
